@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TP1</title>
+</head>
+
+<body>
+  <script>
+
+    var list = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+    var chaineACrypter = 'MERCIVIGNERE';
+    var maCle = 'CLEF';
+
+
+
+    var chaineDecryptee = [];
+
+    var nouvCle = [];
+
+    var chaineIndice = [];
+    var cleIndice = [];
+    var j = 0;
+
+    var Addition = [];
+    var Soustraction = [];
+
+    var chaineCryptee = [];
+    var ciphertext = "AZERTYUIOPQSDFGHJKLMWXCVBNAZERTYUIOFHFHF";
+    var repetitionChaine = "ABCDEFGHIJFRKLM2MAMANOFRPQRABCDEFGD";
+    var monSet = new Set();
+    var tableD = [];
+
+
+    agrandirCle();
+    transformerLettreEnChiffre();
+    additionner();
+    crypter();
+    soustraire();
+    decrypter();
+    for(var i=0; i<10;i++){
+      repetitionLongueur();
+    }
+    tailleCle();
+
+    // kasiskiExamination(ciphertext);
+
+    //Il n'y a pas d'optimisation mais tout est décomposé pour montrer les étapes.
+
+    function agrandirCle(){
+        for(var i = 0; i<chaineACrypter.length;i++){
+          nouvCle[i] = maCle[i%maCle.length];
+        }
+      }
+
+    function transformerLettreEnChiffre(){
+      for(var j = 0; j<list.length; j++){
+        for(var k = 0; k<chaineACrypter.length; k++){
+          if(chaineACrypter[k] == list[j]){
+            chaineIndice[k] = j;
+          }
+        }
+        for(var l = 0; l<nouvCle.length;l++){
+          if(nouvCle[l] == list[j]){
+            cleIndice[l] = j;
+          }
+        }
+      }
+    }
+
+    function additionner(){
+      for(var i = 0; i<nouvCle.length;i++){
+        Addition[i] = cleIndice[i]+chaineIndice[i];
+      }
+      console.log(Addition);
+    }
+
+    function crypter(){
+      for(var j = 0; j<list.length; j++){
+        for(var k = 0; k<Addition.length; k++){
+          if(Addition[k] == j){
+            chaineCryptee[k] = list[j];
+          }
+        }
+      }
+      console.log(chaineCryptee);
+    }
+
+    function soustraire(){
+      for(var i = 0; i<nouvCle.length;i++){
+        Soustraction[i] = Addition[i]-cleIndice[i];
+      }
+      console.log(Soustraction);
+    }
+
+    function decrypter(){
+      for(var j = 0; j<list.length; j++){
+        for(var k = 0; k<Soustraction.length; k++){
+          if(Soustraction[k] == j){
+            chaineDecryptee[k] = list[j];
+          }
+        }
+      }
+      console.log(chaineDecryptee);
+    }
+
+    function repetitionLongueur(){
+      var temprep = "";
+      var secrep = "";
+      var ptemprep = "";
+      var psecrep = "";
+      var decalage = 0;
+      var k = 0;
+
+      for(var i=0; i<repetitionChaine.length;i++){
+        for(var j=0; j<repetitionChaine.length;j++){
+          for(var k=0; k<repetitionChaine.length;k++){
+            if(repetitionChaine.charAt(j)+repetitionChaine.charAt(j+1) == repetitionChaine.charAt(i)+repetitionChaine.charAt(i+1) && i != j){
+              while(temprep == secrep && ptemprep == psecrep){
+                temprep += repetitionChaine.charAt(j+k);
+                secrep += repetitionChaine.charAt(i+k);
+                ptemprep += repetitionChaine.charAt(j+k+1);
+                psecrep += repetitionChaine.charAt(i+k+1);
+                k++;
+              }
+              decalage = Math.abs(i-j);
+            }
+            repetitionChaine = repetitionChaine.replace(secrep,'');
+          }
+        }
+      }
+      console.log(secrep);
+      console.log("decalage" + decalage);
+      monSet.add(decalage);
+      tableD.push(decalage);
+      console.log(repetitionChaine);
+    }
+    
+    function tailleCle(){
+      console.log(tableD);
+      var sup =0;
+      var min =0;
+      for(var i =0;i<tableD.length;i++){
+        if(tableD[i]>=sup){
+          sup = tableD[i];
+        }
+      }
+      for(var i =0;i<tableD.length;i++){
+        if(tableD[i]<=sup && tableD[i]>0){
+          min = tableD[i];
+        }
+      }
+      console.log(sup);
+      console.log(min);
+      b = min;
+      a = sup;
+      while (b != 0) {
+          if (a > b)
+              a = a - b;
+          else
+              b = b - a;
+      }
+      console.log(a);
+    }
+  </script>
+
+</body>
+
+</html>
