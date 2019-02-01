@@ -25,10 +25,13 @@
     var Soustraction = [];
 
     var chaineCryptee = [];
-    var ciphertext = "AZERTYUIOPQSDFGHJKLMWXCVBNAZERTYUIOFHFHF";
-    var repetitionChaine = "ABCDEFGHIJFRKLM2MAMANOFRPQRABCDEFGD";
+    var repetitionChaine = "TESTDEREPETITIONTESTREP";
+    var repetitionChaine2 = "TESTDEREPETITIONTESTREP";
+
     var monSet = new Set();
     var tableD = [];
+    var listeRep = [];
+
 
 
     agrandirCle();
@@ -37,12 +40,10 @@
     crypter();
     soustraire();
     decrypter();
-    for(var i=0; i<10;i++){
+    for(var i=0; i<15;i++){
       repetitionLongueur();
     }
     tailleCle();
-
-    // kasiskiExamination(ciphertext);
 
     //Il n'y a pas d'optimisation mais tout est décomposé pour montrer les étapes.
 
@@ -110,56 +111,67 @@
       var psecrep = "";
       var decalage = 0;
       var k = 0;
-
-      for(var i=0; i<repetitionChaine.length;i++){
-        for(var j=0; j<repetitionChaine.length;j++){
-          for(var k=0; k<repetitionChaine.length;k++){
-            if(repetitionChaine.charAt(j)+repetitionChaine.charAt(j+1) == repetitionChaine.charAt(i)+repetitionChaine.charAt(i+1) && i != j){
+      var e = 1;
+      var nouvTaille = 0;
+      var m = 0;
+      var pos1 = 0;
+      for(var i=0; i<repetitionChaine2.length;i++){
+        for(var j=0; j<repetitionChaine2.length;j++){
+            if(repetitionChaine2.charAt(j)+repetitionChaine2.charAt(j+1) == repetitionChaine2.charAt(i)+repetitionChaine2.charAt(i+1) && i != j){
               while(temprep == secrep && ptemprep == psecrep){
-                temprep += repetitionChaine.charAt(j+k);
-                secrep += repetitionChaine.charAt(i+k);
-                ptemprep += repetitionChaine.charAt(j+k+1);
-                psecrep += repetitionChaine.charAt(i+k+1);
+                temprep += repetitionChaine2.charAt(j+k);
+                secrep += repetitionChaine2.charAt(i+k);
+                ptemprep += repetitionChaine2.charAt(j+k+1);
+                psecrep += repetitionChaine2.charAt(i+k+1);
                 k++;
               }
-              decalage = Math.abs(i-j);
-            }
-            repetitionChaine = repetitionChaine.replace(secrep,'');
+              decalage = Math.abs(j+1);
+              repetitionChaine2 = repetitionChaine2.replace(secrep,'');
+              repetitionChaine2 = repetitionChaine2.replace(temprep,'');
+              pos1 = repetitionChaine.indexOf(secrep);
+              var temp = repetitionChaine.replace(secrep,'');
+              pos2 = temp.indexOf(secrep);
+
+              nouvTaille = repetitionChaine2.length;
           }
         }
       }
-      console.log(secrep);
-      console.log("decalage" + decalage);
-      monSet.add(decalage);
-      tableD.push(decalage);
-      console.log(repetitionChaine);
+      if(decalage != 0){
+        pos2 = pos2+secrep.length;
+        console.log("posUne "+pos1+ " posDeux "+pos2);
+        m++;
+        listeRep[m] = Math.abs(pos1-pos2);
+        console.log(listeRep);
+      }
+
     }
-    
+
     function tailleCle(){
-      console.log(tableD);
-      var sup =0;
-      var min =0;
-      for(var i =0;i<tableD.length;i++){
-        if(tableD[i]>=sup){
-          sup = tableD[i];
-        }
+      // var sup = 0;
+      // var min = 0;
+      // for(var i = 0;i<tableD.length;i++){
+      //   if(tableD[i]>=sup){
+      //     sup = tableD[i];
+      //   }
+      // }
+      // for(var i = 0;i<tableD.length;i++){
+      //   if(tableD[i]<=sup && tableD[i]>0){
+      //     min = tableD[i];
+      //   }
+      // }
+      // // console.log(sup);
+      // // console.log(min);
+      // b = min;
+      // a = sup;
+      // while (b != 0) {
+      //     if (a > b)
+      //         a = a - b;
+      //     else
+      //         b = b - a;
+      // }
+      for(var i=0; i<listeRep.length;i++){
+        console.log(listeRep[i]);
       }
-      for(var i =0;i<tableD.length;i++){
-        if(tableD[i]<=sup && tableD[i]>0){
-          min = tableD[i];
-        }
-      }
-      console.log(sup);
-      console.log(min);
-      b = min;
-      a = sup;
-      while (b != 0) {
-          if (a > b)
-              a = a - b;
-          else
-              b = b - a;
-      }
-      console.log(a);
     }
   </script>
 
