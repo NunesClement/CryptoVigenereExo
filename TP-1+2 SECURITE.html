@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>TP1</title>
+<title>TP 1+2</title>
 </head>
-
 <body>
   <script>
 
@@ -25,12 +24,9 @@
     var chaineCryptee = [];
     var repetitionChaine = "OVVXRZAMGYCPZINXLKFRCBKSHRKMVRRLBMGKVVWQCUAPREOQJSTLMXQCUAPRVLFXRESIME";
     var repetitionChaine2 = "OVVXRZAMGYCPZINXLKFRCBKSHRKMVRRLBMGKVVWQCUAPREOQJSTLMXQCUAPRVLFXRESIME";
-
-    var monSet = new Set();
+    var cleProbable = [];
     var tableD = [];
     var listeRep = [];
-
-
 
     agrandirCle();
     transformerLettreEnChiffre();
@@ -38,12 +34,10 @@
     crypter();
     soustraire();
     decrypter();
-    for(var i=0; i<15;i++){
+    for(var i=0; i<repetitionChaine.length;i++){
       repetitionLongueur();
     }
     tailleCle();
-
-    //Il n'y a pas d'optimisation mais tout est décomposé pour montrer les étapes.
 
     function agrandirCle(){
         for(var i = 0; i<chaineACrypter.length;i++){
@@ -101,17 +95,16 @@
       }
       console.log(chaineDecryptee);
     }
-
-    function repetitionLongueur(){
+  console.log(repetitionChaine);
+                                  /*                                                TP 2 : Kasiki, trouver la taille de la clé                                      */
+  function repetitionLongueur(){
       var temprep = "";
       var secrep = "";
       var ptemprep = "";
       var psecrep = "";
       var decalage = 0;
       var k = 0;
-      var e = 1;
       var nouvTaille = 0;
-      var m = 0;
       var pos1 = 0;
       for(var i=0; i<repetitionChaine2.length;i++){
         for(var j=0; j<repetitionChaine2.length;j++){
@@ -129,48 +122,49 @@
               pos1 = repetitionChaine.indexOf(secrep);
               var temp = repetitionChaine.replace(secrep,'');
               pos2 = temp.indexOf(secrep);
-
               nouvTaille = repetitionChaine2.length;
           }
         }
       }
       if(decalage != 0){
         pos2 = pos2+secrep.length;
-        console.log("posUne "+pos1+ " posDeux "+pos2);
         listeRep.push(Math.abs(pos1-pos2));
-        console.log(listeRep);
       }
-
     }
 
     function tailleCle(){
-      // for(var i =0; i<listeRep.length;i++){
-      //   console.log(listeRep[i]);
-      // }
-      var sup = listeRep[1];
-      var min = listeRep[4];
-      for(var i = 0;i<tableD.length;i++){
-        if(tableD[i]>=sup){
-          sup = tableD[i];
+      var test = 0;
+      var isHere;
+      var probable = 0;
+      var meilleurProbabilite = 0;
+      for(var j =0; j<listeRep.length; j++){
+        for(var i =0; i<listeRep.length;i++){
+          var sup = listeRep[i];
+          var min = listeRep[j];
+          b = min;
+          a = sup;
+          while (b != 0) { (a > b ? a = a - b : b = b - a); }
+          isHere = false;
+          for(var w = 0; w<cleProbable.length;w++){
+            if(cleProbable[w]==a){ isHere = true; }
+          }
+          if(!isHere && a != 1){ cleProbable.push(a); }
         }
       }
-      for(var i = 0;i<tableD.length;i++){
-        if(tableD[i]<=sup && tableD[i]>0){
-          min = tableD[i];
-        }
+      console.log(cleProbable);
+      for(var j =0; j<cleProbable.length; j++){
+        probable = 0;
+        for(var i =0; i<cleProbable.length;i++){
+            if(cleProbable[i]%cleProbable[j] == 0){
+              probable++;
+            }
+         }
+         if(probable >= meilleurProbabilite){
+           meilleurProbabilite = probable;
+         }
       }
-      b = min;
-      a = sup;
-      while (b != 0) {
-          if (a > b)
-              a = a - b;
-          else
-              b = b - a;
-      }
-
- console.log(result);
+      console.log("La longueur de clé la plus probable est " + meilleurProbabilite);
 }
-    }
   </script>
 
 </body>
