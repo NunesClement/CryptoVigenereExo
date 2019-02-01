@@ -11,8 +11,6 @@
     var chaineACrypter = 'MERCIVIGNERE';
     var maCle = 'CLEF';
 
-
-
     var chaineDecryptee = [];
 
     var nouvCle = [];
@@ -25,8 +23,8 @@
     var Soustraction = [];
 
     var chaineCryptee = [];
-    var repetitionChaine = "TESTDEREPETITIONTESTREP";
-    var repetitionChaine2 = "TESTDEREPETITIONTESTREP";
+    var repetitionChaine = "OVVXRZAMGYCPZINXLKFRCBKSHRKMVRRLBMGKVVWQCUAPREOQJSTLMXQCUAPRVLFXRESIME";
+    var repetitionChaine2 = "OVVXRZAMGYCPZINXLKFRCBKSHRKMVRRLBMGKVVWQCUAPREOQJSTLMXQCUAPRVLFXRESIME";
 
     var monSet = new Set();
     var tableD = [];
@@ -139,39 +137,39 @@
       if(decalage != 0){
         pos2 = pos2+secrep.length;
         console.log("posUne "+pos1+ " posDeux "+pos2);
-        m++;
-        listeRep[m] = Math.abs(pos1-pos2);
+        listeRep.push(Math.abs(pos1-pos2));
         console.log(listeRep);
       }
 
     }
 
     function tailleCle(){
-      // var sup = 0;
-      // var min = 0;
-      // for(var i = 0;i<tableD.length;i++){
-      //   if(tableD[i]>=sup){
-      //     sup = tableD[i];
-      //   }
+      // for(var i =0; i<listeRep.length;i++){
+      //   console.log(listeRep[i]);
       // }
-      // for(var i = 0;i<tableD.length;i++){
-      //   if(tableD[i]<=sup && tableD[i]>0){
-      //     min = tableD[i];
-      //   }
-      // }
-      // // console.log(sup);
-      // // console.log(min);
-      // b = min;
-      // a = sup;
-      // while (b != 0) {
-      //     if (a > b)
-      //         a = a - b;
-      //     else
-      //         b = b - a;
-      // }
-      for(var i=0; i<listeRep.length;i++){
-        console.log(listeRep[i]);
+      var sup = listeRep[1];
+      var min = listeRep[4];
+      for(var i = 0;i<tableD.length;i++){
+        if(tableD[i]>=sup){
+          sup = tableD[i];
+        }
       }
+      for(var i = 0;i<tableD.length;i++){
+        if(tableD[i]<=sup && tableD[i]>0){
+          min = tableD[i];
+        }
+      }
+      b = min;
+      a = sup;
+      while (b != 0) {
+          if (a > b)
+              a = a - b;
+          else
+              b = b - a;
+      }
+
+ console.log(result);
+}
     }
   </script>
 
