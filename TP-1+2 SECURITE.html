@@ -4,6 +4,7 @@
 <title>TP 1+2</title>
 </head>
 <body>
+  <script type="text/javascript" src="french_mots.json"></script>   <!-- Ouverture du dictionnaire -->
   <script>
 
     var list = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
@@ -24,10 +25,11 @@
     var chaineCryptee = [];
     var repetitionChaine = "OVVXRZAMGYCPZINXLKFRCBKSHRKMVRRLBMGKVVWQCUAPREOQJSTLMXQCUAPRVLFXRESIME";
     var repetitionChaine2 = "OVVXRZAMGYCPZINXLKFRCBKSHRKMVRRLBMGKVVWQCUAPREOQJSTLMXQCUAPRVLFXRESIME";
+    var repTotal = [];
     // var repetitionChaine = "KQOWEFVJPUJUUNUKGLMEKJINMWUXFQMKJBGWRLFNFGHUDWUUMBSVLPSNCMUEKQCTESWREEKOYSSIWCTUAXYOTAPXPLWPNTCGOJBGFQHTDWXIZAYGFFNSXCSEYNCTSSPNTUJNYTGGWZGRWUUNEJUUQEAPYMEKQHUIDUXFPGUYTSMTFFSHNUOCZGMRUWEYTRGKMEEDCTVRECFBDJQCUSWVBPNLGOYLSKMTEFVJJTWWMFMWPNMEMTMHRSPXFSSKFFSTNUOCZGMDOEOYEEKCPJRGPMURSKHFRSEIUEVGOYCWXIZAYGOSAANYDOEOYJLWUNHAMEBFELXYVLWNOJNSIOFRWUCCESWKVIDGMUCGOCRUWGNMAAFFVNSIUDEKQHCEUCPFCMPVSUDGAVEMNYMAMVLFMAOYFNTQCUAFVFJNXKLNEIWCWODCCULWRIFTWGMUSWOVMATNYBUHTCOCWFYTNMGYTQMKBBNLGFBTWOJFTWGNTEJKNEEDCLDHWTYYIDGMVRDGMPLSWGJLAGOEEKJOFEKUYTAANYTDWIYBNLNYNPWEBFNLFYNAJEBFR";
     // var repetitionChaine2 = "KQOWEFVJPUJUUNUKGLMEKJINMWUXFQMKJBGWRLFNFGHUDWUUMBSVLPSNCMUEKQCTESWREEKOYSSIWCTUAXYOTAPXPLWPNTCGOJBGFQHTDWXIZAYGFFNSXCSEYNCTSSPNTUJNYTGGWZGRWUUNEJUUQEAPYMEKQHUIDUXFPGUYTSMTFFSHNUOCZGMRUWEYTRGKMEEDCTVRECFBDJQCUSWVBPNLGOYLSKMTEFVJJTWWMFMWPNMEMTMHRSPXFSSKFFSTNUOCZGMDOEOYEEKCPJRGPMURSKHFRSEIUEVGOYCWXIZAYGOSAANYDOEOYJLWUNHAMEBFELXYVLWNOJNSIOFRWUCCESWKVIDGMUCGOCRUWGNMAAFFVNSIUDEKQHCEUCPFCMPVSUDGAVEMNYMAMVLFMAOYFNTQCUAFVFJNXKLNEIWCWODCCULWRIFTWGMUSWOVMATNYBUHTCOCWFYTNMGYTQMKBBNLGFBTWOJFTWGNTEJKNEEDCLDHWTYYIDGMVRDGMPLSWGJLAGOEEKJOFEKUYTAANYTDWIYBNLNYNPWEBFNLFYNAJEBFR";
-    // var repetitionChaine = "ARSTUVWXYSTPNEFRNEPITU";
-    // var repetitionChaine2 = "ARSTUVWXYSTPNEFRNEPITU";
+    // var repetitionChaine = "NATCAPKZEFRNKLVDKOEGGUKCGUJDKRMZKLRUGRRNQNKPOAMTGPFFTUEPZEINKCVOGCIJRTFAQUIBWICDQIKWQNX";
+    // var repetitionChaine2 = "NATCAPKZEFRNKLVDKOEGGUKCGUJDKRMZKLRUGRRNQNKPOAMTGPFFTUEPZEINKCVOGCIJRTFAQUIBWICDQIKWQNX";
 
     var cleProbable = [];
     var listeRep = [];
@@ -136,10 +138,12 @@
     }
 
     function tailleCle(){
-      var test = 0;
       var isHere;
       var probable = 0;
       var meilleurProbabilite = 0;
+      var current = null;
+      var cnt = 0;
+      console.log("Probabilité : taille de clé");
       for(var j =0; j<listeRep.length; j++){
         for(var i =0; i<listeRep.length;i++){
           var sup = listeRep[i];
@@ -154,20 +158,32 @@
           if(!isHere && a != 1){ cleProbable.push(a); }
         }
       }
-      // console.log(cleProbable);
-      var lastUsed = 0;
+    var max = Math.max(...cleProbable);
       for(var j = 0; j<cleProbable.length; j++){
         probable = 0;
-        for(var i =0; i<cleProbable.length;i++){
-            if(cleProbable[i]%cleProbable[j] == 0){ probable++; }
+        for(var i =0; i<max;i++){
+            if(cleProbable[j]%i == 0){
+              repTotal.push(i);
+            }
          }
-         if(probable > meilleurProbabilite){
-           meilleurProbabilite = probable;
-           lastUsed = cleProbable[j];
-         }
-      }
-      console.log("La longueur de clé la plus probable est de " + lastUsed + " caractères");
+    }
+    repTotal.sort();
+    var tempBuff;
+    for (var i = 0; i < repTotal.length; i++) {
+      tempBuff = 0;
+        if (repTotal[i] != current) {
+            if (cnt > 0 && cnt != 1) {
+                console.log(current + ' est apparu ' + cnt + ' fois.');
+            }
+            current = repTotal[i];
+            cnt = 1;
+        } else {
+            cnt++;
+        }
+    }
   }
+  // var mydata = JSON.parse();
+  // alert(mydata[0]);
   </script>
 </body>
 </html>
