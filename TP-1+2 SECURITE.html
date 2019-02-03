@@ -4,7 +4,10 @@
 <title>TP 1+2</title>
 </head>
 <body>
-  <script type="text/javascript" src="french_mots.json"></script>   <!-- Ouverture du dictionnaire -->
+
+    <!-- Ouverture du dictionnaire -->
+  <script type="text/javascript" src="french_mots.json"></script>
+
   <script>
 
     var list = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
@@ -12,12 +15,10 @@
     var maCle = 'CLEF';
 
     var chaineDecryptee = [];
-
     var nouvCle = [];
 
     var chaineIndice = [];
     var cleIndice = [];
-    var j = 0;
 
     var Addition = [];
     var Soustraction = [];
@@ -40,9 +41,7 @@
     crypter();
     soustraire();
     decrypter();
-    for(var i=0; i<repetitionChaine.length;i++){
-      repetitionLongueur();
-    }
+    for(var i=0; i<repetitionChaine.length;i++){ repetitionLongueur(); }
     tailleCle();
 
     function agrandirCle(){
@@ -109,7 +108,6 @@
       var psecrep = "";
       var decalage = 0;
       var k = 0;
-      var nouvTaille = 0;
       var pos1 = 0;
       for(var i=0; i<repetitionChaine2.length;i++){
         for(var j=0; j<repetitionChaine2.length;j++){
@@ -127,7 +125,6 @@
               pos1 = repetitionChaine.indexOf(secrep);
               var temp = repetitionChaine.replace(secrep,'');
               pos2 = temp.indexOf(secrep);
-              nouvTaille = repetitionChaine2.length;
           }
         }
       }
@@ -168,9 +165,7 @@
          }
     }
     repTotal.sort();
-    var tempBuff;
     for (var i = 0; i < repTotal.length; i++) {
-      tempBuff = 0;
         if (repTotal[i] != current) {
             if (cnt > 0 && cnt != 1) {
                 console.log(current + ' est apparu ' + cnt + ' fois.');
@@ -182,8 +177,14 @@
         }
     }
   }
-  // var mydata = JSON.parse();
-  // alert(mydata[0]);
+  // Recherche dans le dictionnaire
+
+//Décommenter cette partie pour avoir accès aux clés probables
+  for(n=0;n<data.length;n++){
+    if(data[n]length == 5){ //Si la clé la plus probable est de 5
+      // console.log(data[n].length);
+    }
+  }
   </script>
 </body>
 </html>
