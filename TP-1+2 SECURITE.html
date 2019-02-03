@@ -24,8 +24,12 @@
     var chaineCryptee = [];
     var repetitionChaine = "OVVXRZAMGYCPZINXLKFRCBKSHRKMVRRLBMGKVVWQCUAPREOQJSTLMXQCUAPRVLFXRESIME";
     var repetitionChaine2 = "OVVXRZAMGYCPZINXLKFRCBKSHRKMVRRLBMGKVVWQCUAPREOQJSTLMXQCUAPRVLFXRESIME";
+    // var repetitionChaine = "KQOWEFVJPUJUUNUKGLMEKJINMWUXFQMKJBGWRLFNFGHUDWUUMBSVLPSNCMUEKQCTESWREEKOYSSIWCTUAXYOTAPXPLWPNTCGOJBGFQHTDWXIZAYGFFNSXCSEYNCTSSPNTUJNYTGGWZGRWUUNEJUUQEAPYMEKQHUIDUXFPGUYTSMTFFSHNUOCZGMRUWEYTRGKMEEDCTVRECFBDJQCUSWVBPNLGOYLSKMTEFVJJTWWMFMWPNMEMTMHRSPXFSSKFFSTNUOCZGMDOEOYEEKCPJRGPMURSKHFRSEIUEVGOYCWXIZAYGOSAANYDOEOYJLWUNHAMEBFELXYVLWNOJNSIOFRWUCCESWKVIDGMUCGOCRUWGNMAAFFVNSIUDEKQHCEUCPFCMPVSUDGAVEMNYMAMVLFMAOYFNTQCUAFVFJNXKLNEIWCWODCCULWRIFTWGMUSWOVMATNYBUHTCOCWFYTNMGYTQMKBBNLGFBTWOJFTWGNTEJKNEEDCLDHWTYYIDGMVRDGMPLSWGJLAGOEEKJOFEKUYTAANYTDWIYBNLNYNPWEBFNLFYNAJEBFR";
+    // var repetitionChaine2 = "KQOWEFVJPUJUUNUKGLMEKJINMWUXFQMKJBGWRLFNFGHUDWUUMBSVLPSNCMUEKQCTESWREEKOYSSIWCTUAXYOTAPXPLWPNTCGOJBGFQHTDWXIZAYGFFNSXCSEYNCTSSPNTUJNYTGGWZGRWUUNEJUUQEAPYMEKQHUIDUXFPGUYTSMTFFSHNUOCZGMRUWEYTRGKMEEDCTVRECFBDJQCUSWVBPNLGOYLSKMTEFVJJTWWMFMWPNMEMTMHRSPXFSSKFFSTNUOCZGMDOEOYEEKCPJRGPMURSKHFRSEIUEVGOYCWXIZAYGOSAANYDOEOYJLWUNHAMEBFELXYVLWNOJNSIOFRWUCCESWKVIDGMUCGOCRUWGNMAAFFVNSIUDEKQHCEUCPFCMPVSUDGAVEMNYMAMVLFMAOYFNTQCUAFVFJNXKLNEIWCWODCCULWRIFTWGMUSWOVMATNYBUHTCOCWFYTNMGYTQMKBBNLGFBTWOJFTWGNTEJKNEEDCLDHWTYYIDGMVRDGMPLSWGJLAGOEEKJOFEKUYTAANYTDWIYBNLNYNPWEBFNLFYNAJEBFR";
+    // var repetitionChaine = "ARSTUVWXYSTPNEFRNEPITU";
+    // var repetitionChaine2 = "ARSTUVWXYSTPNEFRNEPITU";
+
     var cleProbable = [];
-    var tableD = [];
     var listeRep = [];
 
     agrandirCle();
@@ -95,7 +99,6 @@
       }
       console.log(chaineDecryptee);
     }
-  console.log(repetitionChaine);
                                   /*                                                TP 2 : Kasiki, trouver la taille de la clé                                      */
   function repetitionLongueur(){
       var temprep = "";
@@ -151,22 +154,20 @@
           if(!isHere && a != 1){ cleProbable.push(a); }
         }
       }
-      console.log(cleProbable);
-      for(var j =0; j<cleProbable.length; j++){
+      // console.log(cleProbable);
+      var lastUsed = 0;
+      for(var j = 0; j<cleProbable.length; j++){
         probable = 0;
         for(var i =0; i<cleProbable.length;i++){
-            if(cleProbable[i]%cleProbable[j] == 0){
-              probable++;
-            }
+            if(cleProbable[i]%cleProbable[j] == 0){ probable++; }
          }
-         if(probable >= meilleurProbabilite){
+         if(probable > meilleurProbabilite){
            meilleurProbabilite = probable;
+           lastUsed = cleProbable[j];
          }
       }
-      console.log("La longueur de clé la plus probable est " + meilleurProbabilite);
-}
+      console.log("La longueur de clé la plus probable est de " + lastUsed + " caractères");
+  }
   </script>
-
 </body>
-
 </html>
